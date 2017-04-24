@@ -1,55 +1,4 @@
-import re
-
-keywords = {'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'const', 'continue',
-            'default', 'do', 'double', 'else', 'enum', 'extends', 'final', 'finally', 'float', 'for', 'goto', 'if',
-            'implements', 'import', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'package', 'private',
-            'protected', 'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized', 'this',
-            'throw', 'throws', 'transient', 'try', 'void', 'volatile', 'while'}
-datatypes = {'boolean', 'byte', 'char', 'double', 'float', 'int', 'long', 'short'}
-boolean = {"true", "false"}
-separator = {'(', ')', '{', '}', '[', ']', ';', ',', '.'}
-
-operators = {'>>>=', '>>=', '<<=', '%=', '^=', '|=', '&=', '/=', '*=', '-=', '+=', '<<', '--', '++', '||', '&&', '!=',
-             '>=', '<=', '==', '%', '^', '|', '&', '/', '*', '-', '+', ':', '?', '~', '!', '<', '>', '=', '...', '->',
-             '::'}
-INFIX = {'||', '&&', '|', '^', '&', '==', '!=', '<', '>', '<=', '>=', '<<', '>>', '>>>', '+', '-', '*', '/', '%'}
-PREFIX = {'++', '--', '!', '~', '+', '-'}
-
-POSTFIX = {'++', '--'}
-
-ASSIGNMENT = {'=', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '%=', '<<=', '>>=', '>>>='}
-
-LAMBDA = {'->'}
-
-METHOD_REFERENCE = {'::'}
-
-# file_name = input("Enter file name")
-# file = open(file_name, "r")
-file = open("C:\Users\Tanmay\Desktop\Hello.txt", "r")
-code = file.read()
-code = code.split("\n")
-print(code)
-
-
-def isKeyword(token):
-    if keywords.__contains__(token):
-        print("Keyword : " + token)
-
-
-def isDataType(token):
-    if datatypes.__contains__(token):
-        print("Datatype : " + token)
-
-
-def isSeparator(token):
-    if separator.__contains__(token):
-        print("Separator: " + token)
-
-
-def isOperator(token):
-    if operators.__contains__(token):
-        print("Operators: " + token)
-
+from tkinter import *
 
 res = dict()
 not_matched = []
@@ -69,7 +18,7 @@ def findit(code_word):
         not_matched.append(code_word)
 
 
-def func():
+def func(code):
     for code_line in code:
         for code_word in code_line.split():
             findit(code_word)
@@ -110,9 +59,35 @@ rules = [('\d+', 'NUMBER'), ('\+', 'PLUS'), ('\-', 'MINUS'), ('\*', 'MULTIPLY'),
          ('\=', 'ASSIGNMENT'), ('\*=', 'ASSIGNMENT'), ('\+=', 'ASSIGNMENT'), ('\>>=', 'ASSIGNMENT'),
          ('\&=', 'ASSIGNMENT'), ('\>>>=', 'ASSIGNMENT'), ('\-=', 'ASSIGNMENT'), ('\->', 'LAMBDA'),
          ('\::', 'METHOD REFERENCE')]
-func()
-for key in res.keys():
-    print(key + ":")
-    for values in res[key]:
-        print("\t" + values)
-print("Unmatched words ", not_matched)
+
+# func()
+
+text = ''
+
+
+def okClicked(text=''):
+    code = E1.get('1.0', END)
+    print(code)
+    code = code.split('\n')
+    func(code)
+    for key in res.keys():
+        print(key + ":")
+        text += key + ":\n"
+        for values in res[key]:
+            print("\t" + values)
+            text += "\t" + values + "\n"
+    print("Unmatched words ", not_matched)
+    # text += "Unmatched words " + not_matched
+    E2.insert(END, text)
+
+
+top = Tk()
+L1 = Label(top, text="Java Code")
+L1.grid(row=0, column=0)
+E1 = Text(top, height=20)
+E1.grid(row=0, column=1)
+E2 = Text(top, height=20)
+E2.grid(row=1, column=1)
+MyButton1 = Button(top, text="Submit", width=10, command=okClicked)
+MyButton1.grid(row=0, column=2)
+top.mainloop()
