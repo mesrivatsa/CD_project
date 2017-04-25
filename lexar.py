@@ -24,6 +24,7 @@ def func(code):
             findit(code_word)
 
 
+
 rules = [('\d+', 'NUMBER'), ('\+', 'PLUS'), ('\-', 'MINUS'), ('\*', 'MULTIPLY'), ('\/', 'DIVIDE'), ('\(', 'LP'),
          ('\)', 'RP'), ('=', 'EQUALS'), ('^interface$', 'KEYWORD'), ('^synchronized$', 'KEYWORD'),
          ('^super$', 'KEYWORD'), ('^class$', 'KEYWORD'), ('^static$', 'KEYWORD'), ('^return$', 'KEYWORD'),
