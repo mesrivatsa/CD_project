@@ -77,7 +77,9 @@ def okClicked(text=''):
             print("\t" + values)
             text += "\t" + values + "\n"
     print("Unmatched words ", not_matched)
-    # text += "Unmatched words " + not_matched
+    text += "Unmatched words - "
+    for word in not_matched:
+        text += word + " , "
     E2.insert(END, text)
 
 
